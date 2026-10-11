@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import heroImg from './assets/orange.png'
+import heroImg from './assets/MainHeader.PNG'
 import './App.css'
 
 function App() {
@@ -8,7 +8,8 @@ function App() {
     <>
       <section id="center">
         <div>
-          <img src={heroImg} height="900"alt="" />
+          <br></br>
+          <img src={heroImg} width="100%" alt="" />
         </div>
       </section>
 
