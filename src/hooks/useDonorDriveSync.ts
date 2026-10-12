@@ -3,7 +3,7 @@ import { fetchRecentDonations } from '../services/donorDrive'
 import type { TrackerState } from '../types'
 
 const POLL_INTERVAL_MS = 15000
-const FEED_LIMIT = 30
+const FEED_LIMIT = 10
 
 export type SyncStatus = 'idle' | 'ok' | 'error'
 

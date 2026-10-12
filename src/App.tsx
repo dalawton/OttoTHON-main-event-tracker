@@ -15,12 +15,12 @@ function App() {
     <div className="board">
       {/* Scattered drawings — see App.css .decoration-* rules for positions.
           Each one hides itself automatically if the file isn't in /public. */}
-      <Decoration src="/balloons.png" className="decoration-balloons" />
-      <Decoration src="/ticket-admit-one.png" className="decoration-ticket-admit" />
-      <Decoration src="/elephant.png" className="decoration-elephant" />
-      <Decoration src="/ticket-booth.png" className="decoration-ticket-booth" />
-      <Decoration src="/goose.png" className="decoration-goose" />
-      <Decoration src="/shark.png" className="decoration-shark" />
+      <Decoration src="public/balloons.png" className="decoration-balloons" />
+      <Decoration src="public/ticket-admit-one.png" className="decoration-ticket-admit" />
+      <Decoration src="public/elephant.png" className="decoration-elephant" />
+      <Decoration src="public/ticket-booth.png" className="decoration-ticket-booth" />
+      <Decoration src="public/goose.png" className="decoration-goose" />
+      <Decoration src="public/shark.png" className="decoration-shark" />
 
       <Hero />
 

@@ -46,7 +46,7 @@ async function fetchJson<T>(url: string): Promise<T> {
  * Most recent donations for the whole event, newest first.
  * `limit` caps how many come back (DonorDrive defaults to a small page size).
  */
-export function fetchRecentDonations(limit = 50): Promise<DonorDriveDonation[]> {
+export function fetchRecentDonations(limit = 10): Promise<DonorDriveDonation[]> {
   return fetchJson<DonorDriveDonation[]>(
     `${DONOR_DRIVE_API_BASE}/events/${DONOR_DRIVE_EVENT_ID}/donations?limit=${limit}`,
   )

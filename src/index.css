@@ -41,4 +41,5 @@ body {
   color: var(--text);
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
+  zoom: 0.8;
 }
