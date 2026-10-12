@@ -11,7 +11,7 @@ const DONATE_URL = 'https://events.dancemarathon.com/OttoTHON26'
 export default function EventCard({ event }: EventCardProps) {
   return (
     <div className="panel-card">
-      <Decoration src="public/popcorn.png" className="decoration-popcorn" />
+      <Decoration src="/popcorn.png" className="decoration-popcorn" />
       <div className="panel-ribbon ribbon-blue">★ LATEST UPDATE ★</div>
 
       <div className="update-body">

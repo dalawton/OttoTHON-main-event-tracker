@@ -23,7 +23,7 @@ export default function DonationFeed({ donations, liveDonations }: DonationFeedP
 
   return (
     <div className="panel-card">
-      <Decoration src="public/rabbit-hat.png" className="decoration-rabbit-hat" />
+      <Decoration src="/rabbit-hat.png" className="decoration-rabbit-hat" />
       <div className="panel-ribbon ribbon-red">★ LIVE DONATION FEED ★</div>
 
       <div className="donation-list">

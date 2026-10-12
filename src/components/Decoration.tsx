@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { publicAsset } from '../lib/publicAsset'
 
 interface DecorationProps {
   src: string
@@ -20,7 +21,7 @@ export default function Decoration({ src, className }: DecorationProps) {
   if (failed) return null
   return (
     <img
-      src={src}
+      src={publicAsset(src)}
       alt=""
       aria-hidden="true"
       className={`decoration ${className ?? ''}`.trim()}

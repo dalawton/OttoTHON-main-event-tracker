@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { publicAsset } from '../lib/publicAsset'
 
 interface ImageSlotProps {
   src: string
@@ -27,7 +28,7 @@ export default function ImageSlot({ src, label, size, className, alt = '' }: Ima
   const [failed, setFailed] = useState(false)
   return (
     <img
-      src={failed ? placeholderDataUri(label, size) : src}
+      src={failed ? placeholderDataUri(label, size) : publicAsset(src)}
       alt={alt}
       className={`${className ?? ''} ${failed ? 'placeholder-img' : ''}`.trim()}
       onError={() => setFailed(true)}
