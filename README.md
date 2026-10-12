@@ -1,5 +1,32 @@
 # OTTOTHON Live Event Tracker
 
+## Deploying to GitHub Pages
+
+This repo is already set up to deploy automatically:
+
+1. Push this repo to GitHub as **OttoTHON-main-event-tracker** (the name baked into `vite.config.ts`'s
+   `base` path — if you ever rename the repo, update that value to match, or assets will 404).
+2. In the repo's **Settings → Pages**, set **Source** to **GitHub Actions** (not "Deploy from a
+   branch").
+3. Push to `main`. The workflow in `.github/workflows/deploy.yml` builds the site and deploys it
+   automatically — check the **Actions** tab for progress. Your site will be live at
+   `https://<your-github-username>.github.io/OttoTHON-main-event-tracker/`.
+
+Every future push to `main` redeploys automatically — no manual build/upload step needed.
+
+**Note on env vars:** `.env` isn't committed (it's gitignored), so the GitHub Actions build uses the
+DonorDrive defaults already hard-coded in `src/config.ts`. That's fine as long as those are correct
+for the current event — if you need to override them for the deployed build without changing the
+code, add `VITE_DONORDRIVE_API_BASE` and `VITE_DONORDRIVE_EVENT_ID` as repo secrets and pass them to
+the build step's `env:` in `deploy.yml`.
+
+To test the production build locally before pushing:
+```bash
+npm run build
+npm run preview
+```
+
+
 A live donation feed and event-update display for OttoTHON's main event, built with React + Vite +
 TypeScript, styled to match the carnival dashboard mockup.
 
