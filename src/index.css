@@ -1,0 +1,44 @@
+:root {
+  /* Backgrounds */
+  --page-bg: #fff8e1;
+  --section-bg: #fff3cc;
+  --card-bg: #ffffff;
+  --panel-bg: #eaf6ff;
+
+  /* Primary / brand */
+  --red: #e63946;
+  --pink: #f6b6c1;
+  --blue: #2e7bb6;
+  --navy: #1b3a6b;
+
+  /* Secondary / accent */
+  --gold: #f6d365;
+  --yellow: #ffd966;
+  --light-blue: #a7d8f0;
+  --green: #a8d98c;
+
+  /* Text */
+  --text: var(--navy);
+  --text-dim: #5b6b8a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--page-bg);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><text x='10' y='24' font-size='14' fill='%23FFD966' opacity='0.55'>★</text><text x='90' y='70' font-size='10' fill='%23FFD966' opacity='0.45'>★</text><text x='45' y='110' font-size='12' fill='%23FFD966' opacity='0.4'>★</text><text x='115' y='30' font-size='9' fill='%23A7D8F0' opacity='0.5'>●</text></svg>");
+  background-repeat: repeat;
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
