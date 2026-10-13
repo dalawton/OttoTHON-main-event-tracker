@@ -6,7 +6,7 @@ interface EventCardProps {
 }
 
 // Update this each year if OttoTHON's DonorDrive link changes (see src/config.ts).
-const DONATE_URL = 'https://events.dancemarathon.com/OttoTHON26'
+const DONATE_URL = 'https://events.dancemarathon.com/ottothon2027'
 
 export default function EventCard({ event }: EventCardProps) {
   return (
