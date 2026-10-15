@@ -1,8 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchRecentDonations } from '../services/donorDrive'
 import type { TrackerState } from '../types'
 
-const POLL_INTERVAL_MS = 15000
+const POLL_INTERVAL_MS = 5000
+// If a request hasn't finished by then, give up on it and try again, so one
+// stalled request (spotty venue wifi) can never freeze the feed.
+const REQUEST_TIMEOUT_MS = 8000
 const FEED_LIMIT = 10
 
 export type SyncStatus = 'idle' | 'ok' | 'error'
@@ -16,16 +19,27 @@ export type SyncStatus = 'idle' | 'ok' | 'error'
 export function useDonorDriveSync(updateState: (updater: (prev: TrackerState) => TrackerState) => void) {
   const [status, setStatus] = useState<SyncStatus>('idle')
   const [lastSynced, setLastSynced] = useState<Date | null>(null)
-  const inFlight = useRef(false)
 
   useEffect(() => {
     let cancelled = false
+    let inFlight = false
+    let timer: ReturnType<typeof setTimeout> | undefined
+    let controller: AbortController | undefined
+
+    // Schedule the next poll only after the current one finishes (success,
+    // error, or timeout), so requests never pile up or get skipped.
+    const schedule = () => {
+      clearTimeout(timer)
+      if (!cancelled) timer = setTimeout(poll, POLL_INTERVAL_MS)
+    }
 
     const poll = async () => {
-      if (inFlight.current) return
-      inFlight.current = true
+      if (inFlight) return
+      inFlight = true
+      controller = new AbortController()
+      const timeout = setTimeout(() => controller?.abort(), REQUEST_TIMEOUT_MS)
       try {
-        const donations = await fetchRecentDonations(FEED_LIMIT)
+        const donations = await fetchRecentDonations(FEED_LIMIT, controller.signal)
         if (cancelled) return
 
         updateState((prev) => ({
@@ -46,18 +60,31 @@ export function useDonorDriveSync(updateState: (updater: (prev: TrackerState) =>
           console.error('DonorDrive sync failed:', err)
         }
       } finally {
-        inFlight.current = false
+        clearTimeout(timeout)
+        inFlight = false
+        schedule()
       }
     }
 
+    // Browsers throttle timers in hidden tabs and pause them while a laptop
+    // sleeps. Poll immediately when the tab comes back or the network returns.
+    const wake = () => {
+      if (document.visibilityState !== 'visible') return
+      clearTimeout(timer)
+      poll()
+    }
+    document.addEventListener('visibilitychange', wake)
+    window.addEventListener('online', wake)
+
     poll()
-    const id = setInterval(poll, POLL_INTERVAL_MS)
     return () => {
       cancelled = true
-      clearInterval(id)
+      clearTimeout(timer)
+      controller?.abort()
+      document.removeEventListener('visibilitychange', wake)
+      window.removeEventListener('online', wake)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [updateState])
 
   return { status, lastSynced }
 }

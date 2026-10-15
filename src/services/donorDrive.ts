@@ -34,8 +34,10 @@ export interface DonorDriveDonation {
   createdDateUTC: string
 }
 
-async function fetchJson<T>(url: string): Promise<T> {
-  const res = await fetch(url)
+async function fetchJson<T>(url: string, signal?: AbortSignal): Promise<T> {
+  // no-store: never let the browser answer from its HTTP cache — we want the
+  // newest donations every poll, not a copy from a minute ago.
+  const res = await fetch(url, { cache: 'no-store', signal })
   if (!res.ok) {
     throw new Error(`DonorDrive API error ${res.status} for ${url}`)
   }
@@ -46,8 +48,9 @@ async function fetchJson<T>(url: string): Promise<T> {
  * Most recent donations for the whole event, newest first.
  * `limit` caps how many come back (DonorDrive defaults to a small page size).
  */
-export function fetchRecentDonations(limit = 10): Promise<DonorDriveDonation[]> {
+export function fetchRecentDonations(limit = 10, signal?: AbortSignal): Promise<DonorDriveDonation[]> {
   return fetchJson<DonorDriveDonation[]>(
     `${DONOR_DRIVE_API_BASE}/events/${DONOR_DRIVE_EVENT_ID}/donations?limit=${limit}`,
+    signal,
   )
 }

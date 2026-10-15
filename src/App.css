@@ -147,6 +147,16 @@
   padding: 10px 2px;
   border-bottom: 1px dashed var(--light-blue);
 }
+/* New rows pop in when they first mount. Rows are keyed by donation id, so
+   only genuinely new donations animate, not the whole list. */
+@keyframes donation-pop {
+  0% { opacity: 0; transform: translateY(-14px) scale(0.96); background: #fff3b0; }
+  60% { opacity: 1; transform: translateY(0) scale(1.02); }
+  100% { opacity: 1; transform: none; background: transparent; }
+}
+.donation-row {
+  animation: donation-pop 0.8s ease-out;
+}
 .donation-row:last-child {
   border-bottom: none;
 }

@@ -31,7 +31,7 @@ export default function DonationFeed({ donations, liveDonations }: DonationFeedP
           <div className="stream-empty">Donations will appear here as they come in.</div>
         ) : (
           sorted.map((d, i) => (
-            <div className="donation-row" key={`${d.id}-${i}`}>
+            <div className="donation-row" key={d.id}>
               <div className="donation-icon">{i % 2 === 0 ? '❤️' : '⭐'}</div>
               <div className="donation-body">
                 <div className="donation-line">
